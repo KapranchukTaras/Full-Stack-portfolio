@@ -1,4 +1,3 @@
-import Image from "next/image"
 import clsx from "clsx"
 import profilePhoto from "../images/profile.png"
 // import signature from "../images/signature.webp"

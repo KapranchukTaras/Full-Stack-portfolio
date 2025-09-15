@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useCallback } from "react"
 import { ArrowRight } from "@react-zero-ui/icon-sprite"
 
 type Props = {
@@ -30,7 +30,7 @@ export function CarouselButtons({ total, desktopVis, autoPlayInterval, activeSta
   // RO for layout/viewport changes
 
   // ---------- helpers (no DOM queries; only use cached refs) ----------
-  const readState = () => {
+  const readState = useCallback(() => {
     const t = trackRef.current
     if (!t) {
       return { vis: desktopVis, start: 0, active: 1 }
@@ -40,9 +40,9 @@ export function CarouselButtons({ total, desktopVis, autoPlayInterval, activeSta
     const start = Number(cs.getPropertyValue("--carousel-idx").trim() || "0") || 0 // 0-based
     const active = Number(cs.getPropertyValue("--active").trim() || t.dataset.active || "1") || 1 // 1-based
     return { vis, start, active }
-  }
+  }, [desktopVis])
 
-  const writeStart = (s: number) => {
+  const writeStart = useCallback((s: number) => {
     const t = trackRef.current
     if (!t) return
     const { vis } = readState()
@@ -51,9 +51,9 @@ export function CarouselButtons({ total, desktopVis, autoPlayInterval, activeSta
     // dedup
     const current = Number(getComputedStyle(t).getPropertyValue("--carousel-idx").trim() || "0") || 0
     if (clamped !== current) t.style.setProperty("--carousel-idx", String(clamped))
-  }
+  }, [readState, total])
 
-  const setActive = (target: number) => {
+  const setActive = useCallback((target: number) => {
     const t = trackRef.current
     if (!t) return
 
@@ -82,7 +82,7 @@ export function CarouselButtons({ total, desktopVis, autoPlayInterval, activeSta
     const last = start + vis
     if (target > last) writeStart(target - vis)
     else if (target < first) writeStart(target - 1)
-  }
+  }, [readState, writeStart])
 
   const next = () => {
     if (activeState) {
@@ -226,7 +226,7 @@ export function CarouselButtons({ total, desktopVis, autoPlayInterval, activeSta
     const mediaQuery = window.matchMedia("(min-width: 576px) and (max-width: 1024px)")
     mediaQuery.addEventListener("change", onResize)
     return () => mediaQuery.removeEventListener("change", onResize)
-  }, [total])
+  }, [total, setActive])
 
   return (
     <>

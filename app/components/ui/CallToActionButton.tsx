@@ -1,13 +1,7 @@
-import Image from "next/image"
-import profilePhoto from "@/public/assets/founder.jpg"
-import clsx from "clsx"
 import type { Variants } from "motion"
-import { MotionButton, MotionDiv } from "@/app/utils/lazy-ui"
-import { SITE_NAP } from "@/config/siteConfig"
-import { Icon } from "../Icon"
 
 export const CallToActionButton = () => {
-  const buttonVariants: Variants = {
+  const _buttonVariants: Variants = {
     initial: {
       opacity: 0,
       filter: `blur(5px)`,
@@ -30,7 +24,7 @@ export const CallToActionButton = () => {
     },
   }
 
-  const youVariants: Variants = {
+  const _youVariants: Variants = {
     initial: {
       opacity: 0,
       x: -10,

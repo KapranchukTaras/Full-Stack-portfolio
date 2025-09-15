@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   title: SITE_CONFIG.title,
   description: SITE_CONFIG.description,
 }
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">

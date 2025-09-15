@@ -1,12 +1,7 @@
 import Image from "next/image"
 import { H3, Text } from "@/app/ui/Elements"
 import { MotionDiv } from "@/app/utils/lazy-ui"
-import { Icon } from "./Icon"
 import profilePhoto from "@/app/images/profile.png"
-import { SITE_NAP } from "@/config/siteConfig"
-import { Mail } from "@react-zero-ui/icon-sprite"
-import { BlackButtonLink } from "./ui/BlackButtonLink"
-import { WhiteButtonLink } from "./ui/WhiteButtonLink"
 
 export const RecruiterContact: React.FC = () => {
   return (
